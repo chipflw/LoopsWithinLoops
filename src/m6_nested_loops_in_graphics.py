@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Chip Daniel.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -66,7 +66,7 @@ def draw_L(window, circle, r, c):
       The 'row' part of the L should have c columns and 3 rows.
         (That is, it is c 'long' and 3 'thick'.)
 
-      The given rg.Circle specifies:
+)      The given rg.Circle specifies:
       - The position of the upper-left circle drawn and also
       - The radius that all the circles have.
       - The fill_color that all the circles have.
@@ -80,11 +80,40 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+    og_x = circle.center.x
+    x = circle.center.x
+    y = circle.center.y
+    rad = circle.radius
+
+    for k in range(r):
+        for j in range(3):
+            x = x + (2 * rad)
+            new_circle = rg.Circle(rg.Point(x, y), rad)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+        y = y + (2 * rad)
+        x = og_x
+        new_circle.fill_color = circle.fill_color
+        new_circle.attach_to(window)
+
+    for k in range(3):
+        for j in range(c + 3):
+            x = x + (2 * rad)
+            even_newer_circle = rg.Circle(rg.Point(x, y), rad)
+            even_newer_circle.fill_color = circle.fill_color
+            even_newer_circle.attach_to(window)
+        y = y + (2 * rad)
+        x = og_x
+        even_newer_circle.fill_color = circle.fill_color
+        even_newer_circle.attach_to(window)
 
 
+
+
+    window.render()
 def run_test_draw_wall_on_right():
     """ Tests the    draw_wall_on_right    function. """
     # Tests 1 and 2 are ALREADY DONE (here).
@@ -125,6 +154,35 @@ def draw_wall_on_right(rectangle, n, window):
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
+    og_x = rectangle.corner_1.x
+    x1 = rectangle.corner_1.x
+    y1 = rectangle.corner_1.y
+    rad = rectangle.corner_2.x - rectangle.corner_1.x
+    x2 = rectangle.corner_2.x
+    y2 = rectangle.corner_2.y
+    for k in range(n):
+        for j in range(k):
+            x1 = x1 + (2 * rad)
+            new_rec = rg.Rectangle(rg.Point(x1, y1), rg.Point((x1 - rad), y2))
+            new_rec.outline_color = rectangle.outline_color
+            new_rec.outline_thickness = rectangle.outline_thickness
+            new_rec.attach_to(window)
+        y1 = y1 + (2 * rad)
+        x1 = og_x
+
+
+
+
+    # for k in range(3):
+    #     for j in range(c + 3):
+    #         x = x + (2 * rad)
+    #         even_newer_circle = rg.Circle(rg.Point(x, y), rad)
+    #         even_newer_circle.fill_color = circle.fill_color
+    #         even_newer_circle.attach_to(window)
+    #     y = y + (2 * rad)
+    #     x = og_x
+    #     even_newer_circle.fill_color = circle.fill_color
+    #     even_newer_circle.attach_to(window)
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
