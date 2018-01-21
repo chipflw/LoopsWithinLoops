@@ -150,39 +150,32 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
-    # ------------------------------------------------------------------
+    # -----------------------------------------------------------------
 
-    og_x = rectangle.corner_1.x
-    x1 = rectangle.corner_1.x
-    y1 = rectangle.corner_1.y
-    rad = rectangle.corner_2.x - rectangle.corner_1.x
-    x2 = rectangle.corner_2.x
-    y2 = rectangle.corner_2.y
+    og_upper_right = rectangle.get_upper_right_corner()
+    og_lower_left = rectangle.get_lower_left_corner()
+    height = rectangle.get_height()
+    length = rectangle.get_width()
+    x1 = og_upper_right.x
+    y1 = og_upper_right.y
+    x2 = og_lower_left.x
+    y2 = og_lower_left.y
+
     for k in range(n):
-        for j in range(k):
-            x1 = x1 + (2 * rad)
-            new_rec = rg.Rectangle(rg.Point(x1, y1), rg.Point((x1 - rad), y2))
-            new_rec.outline_color = rectangle.outline_color
-            new_rec.outline_thickness = rectangle.outline_thickness
-            new_rec.attach_to(window)
-        y1 = y1 + (2 * rad)
-        x1 = og_x
+        for j in range(k + 1):
+            new_rectangle = rg.Rectangle(rg.Point(x1, y1), rg.Point(x2, y2))
+            new_rectangle.attach_to(window)
+            window.render()
 
+            x1 = x1 - length
+            x2 = x2 - length
+        y1 = y1 + height
+        y2 = y2 + height
+        x1 = og_upper_right.x
+        x2 = og_lower_left.x
 
-
-
-    # for k in range(3):
-    #     for j in range(c + 3):
-    #         x = x + (2 * rad)
-    #         even_newer_circle = rg.Circle(rg.Point(x, y), rad)
-    #         even_newer_circle.fill_color = circle.fill_color
-    #         even_newer_circle.attach_to(window)
-    #     y = y + (2 * rad)
-    #     x = og_x
-    #     even_newer_circle.fill_color = circle.fill_color
-    #     even_newer_circle.attach_to(window)
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
